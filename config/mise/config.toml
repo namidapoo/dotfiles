@@ -1,0 +1,25 @@
+[tools]
+aws-cli = "latest"
+bun = "latest"
+claude = "latest"
+deno = "latest"
+gemini-cli = "latest"
+node = "latest"
+pnpm = "latest"
+yarn = "1.22.22"
+
+[tasks.create-next-use-pnpm]
+description = "next-pnpm"
+run = "npx create-next-app@latest --use-pnpm"
+
+[tasks.create-next-use-bun]
+description = "next-bun"
+run = "npx create-next-app@latest --use-bun"
+
+[tasks.cdk-init]
+description = "cdk"
+run = "cdk init app -l typescript"
+
+[tasks.aws-session]
+description = "aws-session"
+run = "aws sts get-caller-identity"
