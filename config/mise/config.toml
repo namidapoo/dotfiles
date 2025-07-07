@@ -6,6 +6,7 @@ deno = "latest"
 gemini-cli = "latest"
 node = "latest"
 pnpm = "latest"
+prettier = "latest"
 yarn = "1.22.22"
 
 [tasks.create-next-use-pnpm]
