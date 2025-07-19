@@ -37,8 +37,6 @@
 	push-f = push --force-with-lease
 [init]
 	defaultBranch = main
-[oh-my-zsh]
-	git-commit-alias = 3e7ef0182f59c7990a52cf6ec2981adb56d5b368
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
