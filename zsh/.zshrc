@@ -166,4 +166,7 @@ alias python='python3'
 alias cc='claude'
 alias ccusage='bunx ccusage@latest'
 alias cs='cursor'
+alias difit='bunx difit@latest'
+alias mdview='gh markdown-preview'
+
 eval "$(mise activate zsh)"
