@@ -4,7 +4,9 @@ bun = "latest"
 claude = "latest"
 deno = "latest"
 gemini-cli = "latest"
+go = "latest"
 node = "latest"
+"npm:turbo" = "latest"
 pnpm = "latest"
 prettier = "latest"
 yarn = "1.22.22"
@@ -24,3 +26,6 @@ run = "cdk init app -l typescript"
 [tasks.aws-session]
 description = "aws-session"
 run = "aws sts get-caller-identity"
+
+[settings]
+idiomatic_version_file_enable_tools = ["node"]
