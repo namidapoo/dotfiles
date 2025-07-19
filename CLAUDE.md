@@ -9,6 +9,10 @@ This is a personal dotfiles repository for managing development environment conf
 ## Structure
 
 - `Brewfile` - Homebrew package definitions (CLI tools, GUI apps, VS Code extensions)
+- `claude/` - Claude AI configuration files
+  - `CLAUDE.md` - Global instructions for Claude (symlinked to ~/.claude/CLAUDE.md)
+  - `settings.json` - Permissions and hooks configuration (symlinked to ~/.claude/settings.json)
+  - `commands/` - Custom command templates (symlinked to ~/.claude/commands/)
 - `config/mise/` - mise configuration for development tool version management
 - `git/` - Git global configuration files
 - `zsh/` - Zsh shell configuration files
@@ -56,4 +60,6 @@ When modifying configuration files:
 - This repository uses a directory-based organization where each tool's configuration is grouped together
 - The Brewfile manages both CLI tools and GUI applications, including VS Code extensions
 - mise is used for managing development tool versions dynamically
-- No symlink management script exists yet - files need to be manually linked to their proper locations
+- Claude configuration files are symlinked from ~/.claude/ to this repository
+  - The `commands/` directory is symlinked at the directory level, so new command files added to `claude/commands/` are automatically available without creating individual symlinks
+- No automated symlink management script exists yet - files need to be manually linked to their proper locations

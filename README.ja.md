@@ -11,6 +11,10 @@
 ```
 dotfiles/
 ├── Brewfile              # Homebrew パッケージ定義
+├── claude/              # Claude AI 設定
+│   ├── CLAUDE.md        # Claude へのグローバル指示
+│   ├── settings.json    # Claude の権限とフック
+│   └── commands/        # カスタム Claude コマンドテンプレート
 ├── config/
 │   └── mise/            # mise (開発ツール管理) 設定
 ├── git/                 # Git グローバル設定

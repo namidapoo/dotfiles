@@ -11,6 +11,10 @@ This repository contains various configuration files for setting up a developmen
 ```
 dotfiles/
 ├── Brewfile              # Homebrew package definitions
+├── claude/              # Claude AI configuration
+│   ├── CLAUDE.md        # Global instructions for Claude
+│   ├── settings.json    # Claude permissions and hooks
+│   └── commands/        # Custom Claude command templates
 ├── config/
 │   └── mise/            # mise (development tools manager) configuration
 ├── git/                 # Git global configuration
