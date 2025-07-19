@@ -1,0 +1,5 @@
+- Please create a pull request following the PR template.
+  - Understand the changes by comparing the current branch with the base branch.
+  - For the `Issue` section, please write it as `fixes #{issue No.}`.
+  - For the `Changes` section, please list the items in bullet points.
+  - For the `Verification` section, please use checkboxes to indicate what has been confirmed.
