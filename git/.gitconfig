@@ -1,8 +1,8 @@
 [user]
 	email = 83203852+ve1997@users.noreply.github.com
-	name = namidapoo
+	name = mfyuu
 [include]
-    path = /Users/namidapoo/.gitconfig.local
+    path = /Users/mfyuu/.gitconfig.local
 [gpg]
   format = ssh
 [gpg "ssh"]
