@@ -10,8 +10,6 @@ model: claude-sonnet-4-20250514
 - Current repository state: !`git status -sb`
 - Current branch details: !`git branch -vv`
 - Default branch: !`gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`
-- Changes to be included: !`BASE_BRANCH=$(gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name') && git diff origin/$BASE_BRANCH..HEAD --stat`
-- Commits to be included: !`BASE_BRANCH=$(gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name') && git log origin/$BASE_BRANCH..HEAD --oneline`
 - PR template (if exists): !`gh repo view --json pullRequestTemplates --jq '.pullRequestTemplates[0].body' 2>/dev/null || echo ""`
 - Recent commits (for language detection): !`git log -n 10 --pretty=format:"%s"`
 
@@ -19,27 +17,33 @@ model: claude-sonnet-4-20250514
 
 Based on the above context:
 
-1. Verify prerequisites:
+1. Check changes and commits to be included:
+
+   - Use the **Default branch** value from context above (obtained from `gh repo view`)
+   - Execute `git diff origin/<default_branch>..HEAD --stat` to see the changes that will be included
+   - Execute `git log origin/<default_branch>..HEAD --oneline` to see the commits that will be included
+   - Review these changes and commits to confirm PR contents
+
+2. Verify prerequisites:
 
    - Review the **Current repository state** and **Current branch details** from context above
-   - Review the **Changes to be included** and **Commits to be included** to confirm PR contents
    - Ensure all changes are committed (no unstaged/uncommitted changes)
    - Confirm the branch is appropriate for creating a PR
    - If issues are found, notify the user before proceeding
 
-2. Push the branch to remote:
+3. Push the branch to remote:
 
    - Execute `git push -u origin HEAD` to ensure the branch is available on GitHub
    - This is safe to run even if already pushed
 
-3. Determine the PR language:
+4. Determine the PR language:
 
    - Based on the **Recent commits** from context above
    - If the majority are in English, write in English
    - If the majority are in Japanese, write in Japanese
    - If `$ARGUMENTS` includes a language instruction, follow that instead
 
-4. Create the pull request:
+5. Create the pull request:
 
    - Review the **PR template** from context above (if exists)
    - Use the repository's PR template if one was found
@@ -47,7 +51,7 @@ Based on the above context:
    - Execute `gh pr create` with appropriate title and body
    - Refer to the **Pull Request Guidelines** section when composing
 
-5. Finalize:
+6. Finalize:
 
    - Execute `gh pr view --web` to open the PR in the browser
    - Provide the PR URL and summary to the user
