@@ -5,79 +5,52 @@ description: Create a GitHub pull request
 model: claude-sonnet-4-20250514
 ---
 
-## TODO
+## Context
 
-1. Check the current repository state and ensure all changes are committed:
+- Current repository state: !`git status -sb`
+- Current branch details: !`git branch -vv`
+- Default branch: !`gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`
+- Changes to be included: !`BASE_BRANCH=$(gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name') && git diff origin/$BASE_BRANCH..HEAD --stat`
+- Commits to be included: !`BASE_BRANCH=$(gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name') && git log origin/$BASE_BRANCH..HEAD --oneline`
+- PR template (if exists): !`gh repo view --json pullRequestTemplates --jq '.pullRequestTemplates[0].body' 2>/dev/null || echo ""`
+- Recent commits (for language detection): !`git log -n 10 --pretty=format:"%s"`
 
-   ```bash
-   git status -sb
-   git branch -vv
-   ```
+## Your Task
 
-   - First command shows uncommitted/staged changes in compact format
-   - Second command shows current branch with tracking information
-   - Verify no uncommitted changes exist before creating PR
+Based on the above context:
 
-2. Review all changes that will be included in the PR:
+1. Verify prerequisites:
 
-   ```bash
-   # Get the default branch from GitHub
-   BASE_BRANCH=$(gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name')
-   # Review changes
-   git diff origin/$BASE_BRANCH..HEAD --stat
-   git log origin/$BASE_BRANCH..HEAD --oneline
-   ```
+   - Review the **Current repository state** and **Current branch details** from context above
+   - Review the **Changes to be included** and **Commits to be included** to confirm PR contents
+   - Ensure all changes are committed (no unstaged/uncommitted changes)
+   - Confirm the branch is appropriate for creating a PR
+   - If issues are found, notify the user before proceeding
 
-   - Automatically detects the repository's default branch
-   - Shows file changes summary with `--stat`
-   - Lists commits that will be included in the PR
+2. Push the branch to remote:
 
-3. Ensure the branch is pushed to remote:
+   - Execute `git push -u origin HEAD` to ensure the branch is available on GitHub
+   - This is safe to run even if already pushed
 
-   ```bash
-   git push -u origin HEAD
-   ```
+3. Determine the PR language:
 
-   - Pushes the current branch if not already pushed
-   - Sets up tracking relationship with remote branch
-   - Safe to run even if already pushed (will show "Everything up-to-date")
-
-4. Check for PR template in the repository:
-
-   ```bash
-   gh repo view --json pullRequestTemplates --jq '.pullRequestTemplates[0].body' 2>/dev/null || echo "No PR template found"
-   ```
-
-   - Uses GitHub API to fetch PR templates directly
-   - Falls back to default template if none exists
-
-5. Determine the language for PR title and description:
-
-   ```bash
-   git log -n 10 --pretty=format:"%s"
-   ```
-
+   - Based on the **Recent commits** from context above
    - If the majority are in English, write in English
    - If the majority are in Japanese, write in Japanese
    - If `$ARGUMENTS` includes a language instruction, follow that instead
 
-6. Create the pull request:
+4. Create the pull request:
 
-   - If a project-specific PR template exists (found in step 4), use that template
-   - If no template exists, use the **Default PR Template** section below
-   - Create the PR with the appropriate template:
+   - Review the **PR template** from context above (if exists)
+   - Use the repository's PR template if one was found
+   - Otherwise, use the **Default PR Template** section below
+   - Execute `gh pr create` with appropriate title and body
+   - Refer to the **Pull Request Guidelines** section when composing
 
-   ```bash
-   gh pr create --title "<title>" --body "<PR body following the template>"
-   ```
+5. Finalize:
 
-7. Verify the PR was created successfully:
-
-   ```bash
-   gh pr view --web
-   ```
-
-8. Provide the PR URL and summary to the user
+   - Execute `gh pr view --web` to open the PR in the browser
+   - Provide the PR URL and summary to the user
 
 ## Default PR Template
 
@@ -124,7 +97,6 @@ N/A - [brief description of the purpose]
 ## Additional Notes
 
 <!-- Any additional context, implementation details, or notes for reviewers -->
-
 ```
 
 ## Pull Request Guidelines

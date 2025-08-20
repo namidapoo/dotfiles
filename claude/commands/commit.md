@@ -1,49 +1,44 @@
 ---
-allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git commit:*)
+allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git branch:*), Bash(git commit:*)
 argument-hint: [additional explanation]
 description: Create a git commit
 model: claude-sonnet-4-20250514
 ---
 
-## TODO
+## Context
 
-1. Review the current staged changes:
+- Current git status: !`git status`
+- Staged changes: !`git diff --staged`
+- Recent commits (for language detection): !`git log -n 10 --pretty=format:"%s"`
+- Current branch: !`git branch --show-current`
 
-   ```bash
-   git status
-   git diff --staged
-   ```
+## Your Task
 
-2. Check the commit history to determine the language for the commit message:
+Based on the above context:
 
-   ```bash
-   git log -n 10 --pretty=format:"%s"
-   ```
+1. Analyze the staged changes for any critical issues:
 
-   - If the majority are in English, write in English
-   - If the majority are in Japanese, write in Japanese
-
-3. Analyze the changes and identify if there are any critical issues:
-
+   - Review the **Staged changes** from context above
    - Check for sensitive information (passwords, API keys, etc.)
    - Verify that the changes are complete and coherent
    - If issues are found, confirm with the user before proceeding
 
-4. Create and execute the commit with an appropriate message:
+2. Determine the commit message language:
 
-   ```bash
-   git commit -m "<message>"
-   ```
+   - Based on the **Recent commits** from context above
+   - If the majority are in English, write in English
+   - If the majority are in Japanese, write in Japanese
+   - If `$ARGUMENTS` includes a language instruction, follow that instead
 
-   refer to the **Commit Message Guidelines** section below when writing the message
+3. Create and execute the commit:
 
-5. Verify the commit was successful:
+   - Refer to the **Commit Message Guidelines** section below when writing the message
+   - Use `git commit -m` with an appropriate message
 
-   ```bash
-   git status
-   ```
+4. Verify the commit was successful:
 
-6. Provide a summary of what was committed to the user
+   - Execute `git status` to verify the commit was successful
+   - Provide a summary of what was committed to the user
 
 ## Commit Message Guidelines
 
