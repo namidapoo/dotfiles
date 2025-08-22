@@ -158,8 +158,6 @@ mcd() {
 # vscodeの統合ターミナルからwarpを開けるように
 alias warp='open -a Warp'
 
-alias python='python3'
-
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
 
@@ -170,3 +168,8 @@ alias difit='bunx difit@latest'
 alias mdview='gh markdown-preview'
 
 eval "$(mise activate zsh)"
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
+
+# Prefer uv-managed Python (must be after mise)
+export PATH="$HOME/.local/bin:$PATH"
